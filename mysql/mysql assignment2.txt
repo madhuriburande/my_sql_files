@@ -1,0 +1,216 @@
+
+#que 1.List all customers with a rating of 100.
+mysql> create database my_assignment2;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use my_assignment2;
+Database changed
+mysql> CREATE TABLE customers(
+    -> id int auto_increment,
+    -> name varchar (100),
+    -> surname varchar(100),
+    -> rating int (10),
+    -> primary key(id)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.05 sec)
+
+mysql> desc customers;
++---------+--------------+------+-----+---------+----------------+
+| Field   | Type         | Null | Key | Default | Extra          |
++---------+--------------+------+-----+---------+----------------+
+| id      | int          | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(100) | YES  |     | NULL    |                |
+| surname | varchar(100) | YES  |     | NULL    |                |
+| rating  | int          | YES  |     | NULL    |                |
++---------+--------------+------+-----+---------+----------------+
+
+INSERT INTO CUSTOMERS
+    -> values(2,'Anant','Burande',200),
+    -> (3,'Mahaveer','Zendge',150),
+    -> (4,'Vitthal','Patil',100),
+    -> (5,'Swara','Adat',100),
+    -> (6,'Pallvi','Thembre',175);
+Query OK, 5 rows affected (0.00 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from customers;
++----+----------+---------+--------+
+| id | name     | surname | rating |
++----+----------+---------+--------+
+|  1 | Madhuri  | Burande |    100 |
+|  2 | Anant    | Burande |    200 |
+|  3 | Mahaveer | Zendge  |    150 |
+|  4 | Vitthal  | Patil   |    100 |
+|  5 | Swara    | Adat    |    100 |
+|  6 | Pallvi   | Thembre |    175 |
++----+----------+---------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from customers where rating=100;
++----+---------+---------+--------+
+| id | name    | surname | rating |
++----+---------+---------+--------+
+|  1 | Madhuri | Burande |    100 |
+|  4 | Vitthal | Patil   |    100 |
+|  5 | Swara   | Adat    |    100 |
++----+---------+---------+--------+
+3 rows in set (0.00 sec)
+
+ alter table customers add city varchar(150);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table customers add Date date;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+ alter table customers add contact_no int(10);
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> select * from customers;
++----+----------+---------+--------+------+------+------------+
+| id | name     | surname | rating | city | Date | contact_no |
++----+----------+---------+--------+------+------+------------+
+|  1 | Madhuri  | Burande |    100 | NULL | NULL |       NULL |
+|  2 | Anant    | Burande |    200 | NULL | NULL |       NULL |
+|  3 | Mahaveer | Zendge  |    150 | NULL | NULL |       NULL |
+|  4 | Vitthal  | Patil   |    100 | NULL | NULL |       NULL |
+|  5 | Swara    | Adat    |    100 | NULL | NULL |       NULL |
+|  6 | Pallvi   | Thembre |    175 | NULL | NULL |       NULL |
++----+----------+---------+--------+------+------+------------+
+6 rows in set (0.00 sec)
+
+mysql> update customers set city='Pune',date='2022-08-19' where id=1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customers;
++----+----------+---------+--------+------+------------+------------+
+| id | name     | surname | rating | city | Date       | contact_no |
++----+----------+---------+--------+------+------------+------------+
+|  1 | Madhuri  | Burande |    100 | Pune | 2022-08-19 |       NULL |
+|  2 | Anant    | Burande |    200 | NULL | NULL       |       NULL |
+|  3 | Mahaveer | Zendge  |    150 | NULL | NULL       |       NULL |
+|  4 | Vitthal  | Patil   |    100 | NULL | NULL       |       NULL |
+|  5 | Swara    | Adat    |    100 | NULL | NULL       |       NULL |
+|  6 | Pallvi   | Thembre |    175 | NULL | NULL       |       NULL |
++----+----------+---------+--------+------+------------+------------+
+6 rows in set (0.00 sec)
+
+update customers set date='2020-12-12',contact_no=904657 where id=3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update customers set date='2015-2-22' where id=5;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customers;
++----+----------+---------+--------+--------+------------+------------+
+| id | name     | surname | rating | city   | Date       | contact_no |
++----+----------+---------+--------+--------+------------+------------+
+|  1 | Madhuri  | Burande |    100 | Pune   | 2022-08-19 |       NULL |
+|  2 | Anant    | Burande |    200 | london | 2021-03-10 |     988165 |
+|  3 | Mahaveer | Zendge  |    150 | NULL   | 2020-12-12 |     904657 |
+|  4 | Vitthal  | Patil   |    100 | NULL   | NULL       |       NULL |
+|  5 | Swara    | Adat    |    100 | NULL   | 2015-02-22 |       NULL |
+|  6 | Pallvi   | Thembre |    175 | NULL   | NULL       |       NULL |
++----+----------+---------+--------+--------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> update customers set city='Nashik'contact_no=748392 where id=4;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'contact_no=748392 where id=4' at line 1
+mysql> update customers set city='Nashik',contact_no=748392 where id=4;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customers;
++----+----------+---------+--------+--------+------------+------------+
+| id | name     | surname | rating | city   | Date       | contact_no |
++----+----------+---------+--------+--------+------------+------------+
+|  1 | Madhuri  | Burande |    100 | Pune   | 2022-08-19 |       NULL |
+|  2 | Anant    | Burande |    200 | london | 2021-03-10 |     988165 |
+|  3 | Mahaveer | Zendge  |    150 | NULL   | 2020-12-12 |     904657 |
+|  4 | Vitthal  | Patil   |    100 | Nashik | NULL       |     748392 |
+|  5 | Swara    | Adat    |    100 | NULL   | 2015-02-22 |       NULL |
+|  6 | Pallvi   | Thembre |    175 | NULL   | NULL       |       NULL |
++----+----------+---------+--------+--------+------------+------------+
+6 rows in set (0.00 sec)
+#QUE2.Find all records in the Customer table with NULL values in the city column.
+ select * from customers where city is NULL;
++----+----------+---------+--------+------+------------+------------+
+| id | name     | surname | rating | city | Date       | contact_no |
++----+----------+---------+--------+------+------------+------------+
+|  3 | Mahaveer | Zendge  |    150 | NULL | 2020-12-12 |     904657 |
+|  5 | Swara    | Adat    |    100 | NULL | 2015-02-22 |       NULL |
+|  6 | Pallvi   | Thembre |    175 | NULL | NULL       |       NULL |
++----+----------+---------+--------+------+------------+------------+
+3 rows in set (0.00 sec)
+
+
+#QUE3.Find the largest order taken by each salesperson on each date.
+ select name,surname,max(date) from customers group by name,date;
++----------+---------+------------+
+| name     | surname | max(date)  |
++----------+---------+------------+
+| Madhuri  | Burande | 2022-08-19 |
+| Anant    | Burande | 2021-03-10 |
+| Mahaveer | Zendge  | 2020-12-12 |
+| Vitthal  | Patil   | NULL       |
+| Swara    | Adat    | 2015-02-22 |
+| Pallvi   | Thembre | NULL       |
++----------+---------+------------+
+6 rows in set (0.01 sec)
+
+mysql> select * from customers;
++----+----------+---------+--------+--------+------------+------------+--------+
+| id | name     | surname | rating | city   | Date       | contact_no | salary |
++----+----------+---------+--------+--------+------------+------------+--------+
+|  1 | Madhuri  | Burande |    100 | Pune   | 2022-08-19 |       NULL | 180000 |
+|  2 | Anant    | Burande |    200 | london | 2021-03-10 |     988165 | 200000 |
+|  3 | Mahaveer | Zendge  |    150 | NULL   | 2020-12-12 |     904657 | 150000 |
+|  4 | Vitthal  | Patil   |    100 | Nashik | NULL       |     748392 | 200000 |
+|  5 | Swara    | Adat    |    100 | NULL   | 2015-02-22 |       NULL |   NULL |
+|  6 | Pallvi   | Thembre |    175 | NULL   | NULL       |       NULL | 205000 |
++----+----------+---------+--------+--------+------------+------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select id,name,max(date)from customers group by id,name;
++----+----------+------------+
+| id | name     | max(date)  |
++----+----------+------------+
+|  1 | Madhuri  | 2022-08-19 |
+|  2 | Anant    | 2021-03-10 |
+|  3 | Mahaveer | 2020-12-12 |
+|  4 | Vitthal  | NULL       |
+|  5 | Swara    | 2015-02-22 |
+|  6 | Pallvi   | NULL       |
++----+----------+------------+
+
+#que4.Arrange the Orders table by descending customer number.
+select * from customers order by id desc;
++----+----------+---------+--------+--------+------------+------------+--------+
+| id | name     | surname | rating | city   | Date       | contact_no | salary |
++----+----------+---------+--------+--------+------------+------------+--------+
+|  6 | Pallvi   | Thembre |    175 | NULL   | NULL       |       NULL | 205000 |
+|  5 | Swara    | Adat    |    100 | NULL   | 2015-02-22 |       NULL |   NULL |
+|  4 | Vitthal  | Patil   |    100 | Nashik | NULL       |     748392 | 200000 |
+|  3 | Mahaveer | Zendge  |    150 | NULL   | 2020-12-12 |     904657 | 150000 |
+|  2 | Anant    | Burande |    200 | london | 2021-03-10 |     988165 | 200000 |
+|  1 | Madhuri  | Burande |    100 | Pune   | 2022-08-19 |       NULL | 180000 |
++----+----------+---------+--------+--------+------------+------------+--------+
+6 rows in set (0.00 sec)
+
+#que5.Find which salespeople currently have orders in the Orders table. 
+
+
+
+
+
+
+
+
+
+
+

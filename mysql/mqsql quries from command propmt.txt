@@ -1,0 +1,274 @@
+1.ope1. open command  prompt below path past.
+cd C:\Program Files\MySQL\MySQL Server 8.0\bin
+
+2.enter the user name and password.
+mysql -u root -p     username-- root and password --madhuri
+
+2.1 how to create user on command prompt.
+CREATE USER 'Sonali'@'localhost' IDENTIFIED BY 'sonu';
+
+2.2how to check user in command prompt
+SELECT USER HOST FROM mysql.user;
+
+2.3 how to add privileges on command prompt.
+GRANT ALL PRIVILEGES ON *.* TO 'Sonali'@'localhost';
+2.4 show the all privileges
+SHOW GRANTS FOR 'Sonali'@'localhost';
+
+2.5 how to revoke all privilges.
+REVOKE ALLPRIVILGES,GRANT OPTION FROM 'Sonali'@'localhost';
+
+3.create datbase.
+create database database_name;
+eg-CREATE DATABASE my_db;
+
+
+
+4.check databases by using below comand.
+ show databases;
+
+5.how tocreate table
+
+CREATE TABLE table_name;
+eg--CREATE TABLE employee(
+id int AUTO_INCREMENT,
+name varchar(50),
+surname varchar(40),
+salary decimal (7,2),
+djob date,
+primary key(id)
+)
+
+6.how to insert table .
+
+INSERT INTO table_name(name,surname)
+VALUES('Madhuri','Burande');
+
+7.how toalter table.
+ALTER TABLE table_name
+ADD column_name or datatype and value
+
+e.g-- ALTER TABLE EMPLOYEE
+ADD EMAIL VARCHAR(20);        ### ADD COLUMN OR ROW IN TABLE.
+
+6.how to check table create or not.
+show tables;
+desc table table_name;
+eg-- DESC TABLE employee;
+
+7.how to insert table.
+INSERT INTO employee(
+name,surname,salary,djob)
+values('Madhuri','Burande',180000,'2022-12-1');
+
+8 how to check table.
+select * from table_name;
+eg--select * from employee;
+
+9.how to drop table.
+DROP TABLE table_name;   ##DELETE TABL
+
+10.how to update column or value in column.
+UPDATE table_name set name='abc',city='london' WHERE ID=101;    ##UPDATE VALUE OR IF NO VALUE THEN WE CAN ADD THE VALUE IN COLUMN
+
+11.MYSQL DELETE QUERY
+DELETE FROM table_name where id=101;     ## HERE  ID=1010 HOLE ROW OR DETAILS DELETE.
+
+12.HOW DELETE ALL DETAILS IN TABLE BUT NOT TABLE.
+TRUNCATE TABLE EMP1;
+
+13.WHERE CLAUSES FORMAT.
+SELECT * FROM TABLE_NAME WHERE CONDITION;  OR  
+
+SELECT COLUMN_NAME FROM TABLE_NAME WHERE CONDITION;
+
+eg-- SELECT * FROM EMP1 WHERE EMP_ID=1;    ##  SHOW DETAILS ONLY WHERE CLAUSES CONDITION IS TRUE.
+
+14.MySQL WHERE Clause with AND condition.
+SELECT * FROM TABLE_NAME WHERE ADDRESS='ABC' AND ID=1;  ## HERE BOTH CONDITION ARE TRUE THEN IT SHOWS THE OUTPUT.
+
+15.MySQL WHERE Clause with OR condition
+SELECT * FROM EMP1 WHERE AGE>=24 OR EMP_ID=11;   ## HERE IF ONE CONDITION IS TRUE IT SHOW THE OP
+
+16.MySQL WHERE Clause with combination of AND & OR conditions
+SELECT * FROM EMP1 WHERE AGE>=25 AND NAME='Madhuri' OR EMP_ID=10;
+
+17.MySQL DISTINCT Clause with multiple expressionS.
+ SELECT DISTINCT NAME,CITY FROM EMP1;      ## HERE REMOVES DUPLICATE FROM YOU SELCTE.
+
+18.MySQL ORDER BY Clause
+## The MYSQL ORDER BY Clause is used to sort the records in ascending or descending order.
+
+SELECT expressions  
+FROM tables  
+[WHERE conditions]  
+ORDER BY expression [ ASC | DESC ];
+
+EG-- SELECT * FROM EMP1 WHERE AGE>=22 ORDER BY EMP_ID ASC;   ## FOR ASCENDING OREDER
+
+EG-- SELECT * FROM EMP1 WHERE AGE>=22 ORDER BY EMP_ID DESC;  ## FOR DECENDING ORDER
+
+EG--SELECT * FROM EMP1 WHERE EMP_ID>3 ORDER BY AGE DESC, NAME ASC;
+
+19.MySQL GROUP BY Clause
+SELECT expression1, expression2, ... expression_n,   
+aggregate_function (expression)  
+FROM tables  
+[WHERE conditions]  
+GROUP BY expression1, expression2, ... expression_n; 
+
+EG-- SELECT CITY,COUNT(*) FROM EMP1 GROUP BY CITY;
+
+EG--2 SELECT NAME ,SUM(SALARY) AS 'TOTAL SALARY' FROM EMP1 GROUP BY NAME;
+
+20.MySQL HAVING Clause.
+SELECT expression1, expression2, ... expression_n,   
+aggregate_function (expression)  
+FROM tables  
+[WHERE conditions]  
+GROUP BY expression1, expression2, ... expression_n  
+HAVING condition;  
+
+21.MySQL HAVING Clause is used with GROUP BY clause. It always returns the rows where condition is TRUE.
+
+EG-SELECT ADDRESS FROM EMPLOYEE GROUP BY ADDRESS HAVING COUNT(ID)>=1 ORDER BY ADDRESS ASC;
+EG-SELECT COUNT(ID),ADDRESS FROM EMPLOYEE GROUP BY ADDRESS HAVING COUNT(ID)>=1 ORDER BY COUNT(ID) DESC;
+SELECT * FROM EMPLOYEE HAVING COUNT(ADDRESS)>=2;
+
+22.MySQL LIKE condition
+In MySQL, LIKE condition is used to perform pattern matching to find the correct result. It is used in SELECT,
+ 
+INSERT, UPDATE and DELETE statement with the combination of WHERE clause
+
+EG-SELECT * FROM EMPLOYEE WHERE ADDRESS LIKE 'P%';
+
+EG2- SELECT FIRST_NAME FROM EMPLOYEE WHERE ADDRESS LIKE 'P%';
+
+EG---- FOR NOT LIKE-------------
+SELECT * FROM EMPLOYEE WHERE COMPANY_NAME NOT LIKE 'W%'
+
+23.MySQL BETWEEN condition with numeric value:
+The MYSQL BETWEEN condition specifies how to retrieve values from an expression within a specific range. 
+It is used with SELECT, INSERT, UPDATE and DELETE statement.
+
+EG-- SELECT * FROM EMPLOYEE WHERE FIRST_NAME BETWEEN 'M'AND 'Z';
+EG-- SELECT * FROM EMPLOYEE WHERE ID BETWEEN 1 AND 3;
+##------------- NOT BETWEEN -----------------
+EG--SELECT * FROM EMPLOYEE WHERE FIRST_NAME NOT BETWEEN 'P'AND 'Z';
+EG-- SELECT * FROM EMPLOYEE WHERE ID NOT BETWEEN 1 AND 3
+
+##---------------------------------- joins----------------------------##
+1.MySQL Inner JOIN (Simple Join)
+The MySQL INNER JOIN is used to return all rows from multiple tables where the join condition is satisfied. 
+It is the most common type of join.
+syntax--
+SELECT columns  
+FROM table1   
+INNER JOIN table2  
+ON table1.column = table2.column;
+
+eg1.
+SELECT EMPLOYEE.FIRST_NAME,EMP1.CITY FROM EMPLOYEE INNER JOIN EMP1 ON EMPLOYEE.ID=EMP1.EMP_ID;
+
+EG2.SELECT EMPLOYEE.FIRST_NAME,EMPLOYEE.LAST_NAME,EMPLOYEE.SALARY, EMP1.EMAIL FROM EMPLOYEE INNER JOIN EMP1 ON EMPLOYEE.ID=EMP1.EMP_ID;
+
+2.MySQL Left Outer Join
+The LEFT OUTER JOIN returns all rows from the left hand table specified in the ON condition and only those 
+rows from the other table where the join condition is fulfilled.
+
+SELECT columns  
+FROM table1  
+LEFT [OUTER] JOIN table2  
+ON table1.column = table2.column;  
+
+eg1.SELECT EMPLOYEE.FIRST_NAME,EMPLOYEE.LAST_NAME,EMPLOYEE.SALARY, EMP1.EMAIL FROM EMPLOYEE LEFT JOIN EMP1 ON EMPLOYEE.ID=EMP1.EMP_ID;
+
++---------+----------+-----------+--------------+
+| NAME    | SURNAME  | SALARY    | COMPANY_NAME |
++---------+----------+-----------+--------------+
+| Madhuri | Burande  | 120000.67 | TCS          |
+| Pallavi | Thembre  | 100000.34 | Infosys      |
+| Mrunal  | Tripathi | 130000.89 | TCS          |
+| Ankita  | Adat     |      NULL | NULL         |
+| Ram     | patil    |      NULL | NULL         |
+| Khushi  | NULL     |      NULL | NULL         |
++---------+----------+-----------+-------------
+
+EG2.SELECT EMP1.NAME,EMP1.SURNAME,EMPLOYEE.SALARY,EMPLOYEE.COMPANY_NAME FROM EMP1 LEFT JOIN EMPLOYEE ON EMP1.EMP_ID=EMPLOYEE.ID;
+
+3.MySQL Right Outer Join
+The MySQL Right Outer Join returns all rows from the RIGHT-hand table specified in the ON condition and only 
+those rows from the other table where he join condition is fulfilled.
+
+SELECT EMP1.NAME,EMP1.SURNAME,EMP1.EMAIL,EMPLOYEE.FIRST_NAME,EMPLOYEE.COMPANY_NAME FROM EMP1 RIGHT JOIN EMPLOYEE ON EMP1.EMP_ID=EMPLOYEE.ID;
+
+EG2. SELECT EMPLOYEE.FIRST_NAME,EMPLOYEE.LAST_NAME,EMP1.CITY,EMP1.EMAIL FROM EMPLOYEE RIGHT JOIN EMP1 ON EMPLOYEE.ID=EMP1.EMP_ID;
++------------+-----------+--------+-------------------+
+| FIRST_NAME | LAST_NAME | CITY   | EMAIL             |
++------------+-----------+--------+-------------------+
+| Madhuri    | Burande   | LONDON | madhu@gmail.com   |
+| Ankita     | Adat      | LONDON | pallavi@gmail.com |
+| Pallvi     | Thembare  | NULL   | mrunal@gmail.com  |
+| NULL       | NULL      | NULL   | ankita@gamil.com  |
+| NULL       | NULL      | NULL   | ram@gamil.com     |
+| NULL       | NULL      | NULL   | NULL              |
++------------+-----------+--------+-------------------+
+
+
+EG3. SELECT EMP1.NAME,EMP1.SURNAME,EMPLOYEE.SALARY,EMPLOYEE.COMPANY_NAME FROM EMP1 RIGHT JOIN EMPLOYEE ON EMP1.EMP_ID=EMPLOYEE.ID;
+
+---------+----------+-----------+--------------+
+| NAME    | SURNAME  | SALARY    | COMPANY_NAME |
++---------+----------+-----------+--------------+
+| Madhuri | Burande  | 120000.67 | TCS          |
+| Pallavi | Thembre  | 100000.34 | Infosys      |
+| Mrunal  | Tripathi | 130000.89 | TCS          |
+| NULL    | NULL     |  80000.78 | Wipro        |
+| NULL    | NULL     |  90000.45 | Tata         |
+| NULL    | NULL     | 123455.65 | Wipro        |
++---------+----------+-----------+--------------+
+
+SELECT EMP1.NAME,EMP1.SURNAME,EMPLOYEE.SALARY,EMPLOYEE.COMPANY_NAME FROM EMP1 RIGHT JOIN EMPLOYEE ON EMP1.EMP_ID=EMPLOYEE.ID ORDER BY EMP_ID DESC;
++---------+----------+-----------+--------------+
+| NAME    | SURNAME  | SALARY    | COMPANY_NAME |
++---------+----------+-----------+--------------+
+| Mrunal  | Tripathi | 130000.89 | TCS          |
+| Pallavi | Thembre  | 100000.34 | Infosys      |
+| Madhuri | Burande  | 120000.67 | TCS          |
+| NULL    | NULL     |  80000.78 | Wipro        |
+| NULL    | NULL     |  90000.45 | Tata         |
+| NULL    | NULL     | 123455.65 | Wipro        |
++---------+----------+-----------+--------------+
+
+
+4.MySQL CROSS JOIN
+MySQL CROSS JOIN is used to combine all possibilities of the two or more tables and returns the result that contains 
+every row from all contributing tables
+
+EG.1.SELECT EMP1.NAME,EMP1.SURNAME,EMPLOYEE.SALARY,EMPLOYEE.COMPANY_NAME FROM EMP1 CROSS JOIN EMPLOYEE ON EMP1.EMP_ID=EMPLOYEE.ID;
+
+---------+----------+-----------+--------------+
+| NAME    | SURNAME  | SALARY    | COMPANY_NAME |
++---------+----------+-----------+--------------+
+| Madhuri | Burande  | 120000.67 | TCS          |
+| Pallavi | Thembre  | 100000.34 | Infosys      |
+| Mrunal  | Tripathi | 130000.89 | TCS          |
++---------+----------+-----------+-------
+
+
+
+## -------------------- password reset  process------------------------
+
+
+"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysqld.exe"
+"C:\ProgramData\MySQL\MySQL Server 8.0\my.ini"
+
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';
+
+
+
+
+
+
+
+
